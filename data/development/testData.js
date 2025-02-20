@@ -12,5 +12,4 @@ const testData = {
     userDetails: '/api/user/details',
   },
 };
-
 export default testData;

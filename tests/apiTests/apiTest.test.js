@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 import ApiClient from '../../api/apiClient';
-import { getTestData } from '../../utils/testHelper';
+import { getEnvData, getApiTestData } from '../../utils/testHelper';
 
 test.describe('API Tests', () => {
   let apiClient;
 
   test.beforeAll(async () => {
-    apiClient = new ApiClient('https://api.homedepot.com');
+    apiClient = new ApiClient(getEnvData('BASE_URL'));
     await apiClient.init();
   });
 
@@ -15,9 +15,9 @@ test.describe('API Tests', () => {
   });
 
   test('Valid user can login via API @api @smoke', async () => {
-    const validUser = getTestData('validUser');
+    const validUser = getApiTestData('validUser');
     const response = await apiClient.post(
-      getTestData('apiEndpoints').login,
+      getEnvData('LOGIN_ENDPOINT'),
       validUser
     );
     expect(response.status()).toBe(200);
@@ -25,9 +25,9 @@ test.describe('API Tests', () => {
   });
 
   test('Invalid user cannot login via API @api @regression', async () => {
-    const invalidUser = getTestData('invalidUser');
+    const invalidUser = getApiTestData('invalidUser');
     const response = await apiClient.post(
-      getTestData('apiEndpoints').login,
+      getEnvData('LOGIN_ENDPOINT'),
       invalidUser
     );
     expect(response.status()).toBe(401);

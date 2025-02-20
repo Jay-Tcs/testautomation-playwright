@@ -1,10 +1,10 @@
-require('dotenv').config();
+import 'dotenv/config';
 
 module.exports = {
-  testDir: 'src/tests',
-  timeout: 30000,
+  testDir: 'tests', // Directory where test files are located
+  timeout: 30000, // Default test timeout
   expect: {
-    timeout: 5000,
+    timeout: 5000, // Default timeout for expect assertions
   },
   reporter: [
     ['list'],
