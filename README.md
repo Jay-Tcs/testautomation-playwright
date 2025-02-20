@@ -4,21 +4,28 @@ This project is an advanced test automation framework using Playwright for both 
 
 ## Project Structure
 
+```
 testautomation-playwright/
-├── src/
-│ ├── api/
-│ │ └── apiClient.js
-│ ├── pages/
-│ │ ├── basePage.js
-│ │ └── loginPage.js
-│ ├── tests/
-│ │ ├── apiTests/
-│ │ │ └── apiTest.test.js
-│ │ └── uiTests/
-│ │ └── loginPage.test.js
-│ ├── utils/
-│ │ ├── testData.js
-│ │ └── testHelper.js
+├── api/
+│   └── apiClient.js
+├── pages/
+│   ├── basePage.js
+│   └── loginPage.js
+├── tests/
+│   ├── apiTests/
+│   │   └── apiTest.test.js
+│   └── uiTests/
+│       └── loginPage.test.js
+├── utils/
+│   ├── testData/
+│   │   ├── development/
+│   │   │   └── testData.js
+│   │   ├── staging/
+│   │   │   └── testData.js
+│   │   └── production/
+│   │       └── testData.js
+│   ├── helpers/
+│   │   └── testHelper.js
 ├── .gitignore
 ├── .eslintrc.json
 ├── .prettierrc
@@ -26,6 +33,7 @@ testautomation-playwright/
 ├── playwright.config.js
 ├── README.md
 └── .env
+```
 
 ## Setup
 
@@ -35,7 +43,18 @@ testautomation-playwright/
    npm install
    ```
 
-2. **Run tests:**
+2. **Create a `.env` file:**
+
+   Create a `.env` file in the root directory with the following content:
+
+   ```env
+   BASE_URL=https://api.homedepot.com
+   LOGIN_ENDPOINT=/api/login
+   USER_DETAILS_ENDPOINT=/api/user/details
+   API_KEY=your_api_key_here
+   ```
+
+3. **Run tests:**
 
    ```sh
    npx playwright test
@@ -44,9 +63,10 @@ testautomation-playwright/
 ## Configuration
 
 - **`playwright.config.js`**: Configuration file for Playwright.
-- **`src/pages/`**: Contains page object model classes.
-- **`src/tests/`**: Contains test scripts.
-- **`src/utils/testData.js`**: Contains test data.
+- **`pages/`**: Contains page object model classes.
+- **`tests/`**: Contains test scripts.
+- **`utils/testData/`**: Contains test data for different environments.
+- **`utils/helpers/testHelper.js`**: Contains helper functions for fetching test data.
 
 ## Running Tests
 
@@ -62,8 +82,80 @@ testautomation-playwright/
   npx playwright test --project=chrome
   ```
 
+- **To run tests in Firefox:**
+
+  ```sh
+  npx playwright test --project=firefox
+  ```
+
+- **To run tests in WebKit:**
+
+  ```sh
+  npx playwright test --project=webkit
+  ```
+
+- **To run smoke tests:**
+
+  ```sh
+  npx playwright test --grep @smoke
+  ```
+
+- **To run regression tests:**
+
+  ```sh
+  npx playwright test --grep @regression
+  ```
+
+- **To run API tests:**
+
+  ```sh
+  npx playwright test --grep @api
+  ```
+
 ## Advanced Options
 
 - **Screenshots, videos, and traces** are retained on test failures.
 - **Tests are retried** up to 2 times on failure.
-- **Test results** are stored in the `test-results` directory.
+- **Test results** are stored in the `reports/test-results` directory.
+
+## Linting and Formatting
+
+- **To lint the code:**
+
+  ```sh
+  npm run lint
+  ```
+
+- **To format the code:**
+
+  ```sh
+  npm run format
+  ```
+
+## Environment-Specific Configurations
+
+- **Development Environment:**
+
+  ```sh
+  dotenv -e .env.development npx playwright test
+  ```
+
+- **Staging Environment:**
+
+  ```sh
+  dotenv -e .env.staging npx playwright test
+  ```
+
+- **Production Environment:**
+
+  ```sh
+  dotenv -e .env.production npx playwright test
+  ```
+
+## Additional Information
+
+- **ESLint Configuration:** `.eslintrc.json`
+- **Prettier Configuration:** `.prettierrc`
+- **Environment Variables:** `.env`
+
+By following these instructions, you can set up and run tests using the Playwright framework for both API and UI testing.
