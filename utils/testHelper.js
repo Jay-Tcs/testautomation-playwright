@@ -23,13 +23,14 @@ export const getApiTestData = (key) => {
     let apiTestData;
     switch (environment) {
         case 'production':
-            apiTestData = require('../tests/apiTests/data/production/apiTestData.js').default;
+            
+            apiTestData = require('../tests/apiTests/data/production/apiTestData').default;
             break;
         case 'staging':
-            apiTestData = require('../tests/apiTests/data/staging/apiTestData.js').default;
+            apiTestData = require('../tests/apiTests/data/staging/apiTestData').default;
             break;
         default:
-            apiTestData = require('../tests/apiTests/data/development/apiTestData.js').default;
+            apiTestData = require('../tests/apiTests/data/development/apiTestData').default;
     }
     return apiTestData[key];
 };
@@ -51,4 +52,18 @@ export const getUiTestData = (key) => {
 
 export const getEnvData = (key) => {
     return process.env[key];
+};
+
+// Add this function to fetch test data based on the environment and module
+export const getTestData = (module, key) => {
+    switch (module) {
+        case 'global':
+            return getGlobalTestData(key);
+        case 'api':
+            return getApiTestData(key);
+        case 'ui':
+            return getUiTestData(key);
+        default:
+            throw new Error(`Unknown module: ${module}`);
+    }
 };

@@ -21,7 +21,7 @@ class ApiClient {
         'Request context is not initialized. Call init() before making requests.'
       );
     }
-    const response = await this.requestContext.post(endpoint, {
+    const response = await this.requestContext.post(`${this.baseURL}${endpoint}`, {
       data,
     });
     return response;
@@ -33,7 +33,7 @@ class ApiClient {
         'Request context is not initialized. Call init() before making requests.'
       );
     }
-    const response = await this.requestContext.get(endpoint);
+    const response = await this.requestContext.get(`${this.baseURL}${endpoint}`);
     return response;
   }
 

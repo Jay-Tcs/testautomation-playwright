@@ -48,7 +48,7 @@ testautomation-playwright/
    Create a `.env` file in the root directory with the following content:
 
    ```env
-   BASE_URL=https://api.homedepot.com
+   BASE_URL=https://api.github.com
    LOGIN_ENDPOINT=/api/login
    USER_DETAILS_ENDPOINT=/api/user/details
    API_KEY=your_api_key_here
